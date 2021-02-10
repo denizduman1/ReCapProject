@@ -9,7 +9,7 @@ namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
-        ICarDal _carDal;
+        ICarDal _carDal; //injection
 
         public CarManager(ICarDal carDal)
         {
@@ -18,12 +18,19 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
-            throw new NotImplementedException();
+            if (car.Name.Length>=2 && car.DailyPrice>0)
+            {
+                _carDal.Add(car);
+            }
+            else
+            {
+                Console.WriteLine("başarısız işlem");
+            }
         }
 
         public void Delete(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Delete(car);
         }
 
         public List<Car> GetAll()
@@ -33,12 +40,22 @@ namespace Business.Concrete
 
         public Car GetById(int id)
         {
-            throw new NotImplementedException();
+            return _carDal.Get(c => c.Id == id);
+        }
+
+        public List<Car> GetCarsByBrandId(int brandId)
+        {
+            return _carDal.GetAll(c => c.BrandId == brandId);
+        }
+
+        public List<Car> GetCarsByColorId(int colorId)
+        {
+           return _carDal.GetAll(c => c.ColorId == colorId);
         }
 
         public void Update(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Update(car);
         }
     }
 }
