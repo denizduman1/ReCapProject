@@ -11,14 +11,47 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            //CarList(carManager);
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            //ColorList(colorManager);
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            //BrandList(brandManager);
-            //CarDetailList(carManager);
-            //AddNewData(carManager, colorManager, brandManager);
-            CarDetailList(carManager);
+            UserManager userManager = new UserManager(new EfUserDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+        }
+
+        private static void RentalDetailList(RentalManager rentalManager)
+        {
+            var result = rentalManager.GetRentalDetails();
+            foreach (var rentalDetail in result.Data)
+            {
+                Console.WriteLine(rentalDetail.Id + " " + rentalDetail.CarName + " " + rentalDetail.CustomerFirstName + " " + rentalDetail.CustomerLastName + " " + rentalDetail.RentDate + " " + rentalDetail.ReturnDate);
+            }
+        }
+
+        private static void CustomerDetailList(CustomerManager customerManager)
+        {
+            var result = customerManager.GetCustomerDetails();
+            foreach (var customer in result.Data)
+            {
+                Console.WriteLine(customer.UserId + " " + customer.FirstName + " " + customer.LastName + " " + customer.CompanyName);
+            }
+        }
+
+        private static void CustomerList(CustomerManager customerManager)
+        {
+            var result = customerManager.GetAll();
+            foreach (var customer in result.Data)
+            {
+                Console.WriteLine(customer.UserId + " " + customer.CompanyName);
+            }
+        }
+
+        private static void UserList(UserManager userManager)
+        {
+            var result = userManager.GetAll();
+            foreach (var user in result.Data)
+            {
+                Console.WriteLine(user.Id + " " + user.FirstName + " " + user.LastName);
+            }
         }
 
         private static void AddNewData(CarManager carManager, ColorManager colorManager, BrandManager brandManager)
@@ -30,7 +63,9 @@ namespace ConsoleUI
 
         private static void CarDetailList(CarManager carManager)
         {
-            foreach (var cars in carManager.GetCarDetails())
+            var result = carManager.GetCarDetails();
+           
+            foreach (var cars in result.Data)
             {
                 Console.WriteLine(cars.Id + " " + cars.Brand + " (" + cars.Name + ") " + cars.Color +" "+cars.DailyPrice + "$");
             }
@@ -38,26 +73,39 @@ namespace ConsoleUI
 
         private static void BrandList(BrandManager brandManager)
         {
-            foreach (var brand in brandManager.GetAll())
+            var result = brandManager.GetAll();
+            foreach (var brand in result.Data)
             {
                 Console.WriteLine(brand.Id + " " + brand.Name);
             }
+            Console.WriteLine(result.Message);
         }
 
         private static void ColorList(ColorManager colorManager)
         {
-            foreach (var color in colorManager.GetAll())
+            var result = colorManager.GetAll();
+            foreach (var color in result.Data)
             {
                 Console.WriteLine(color.Id + " " + color.Name);
             }
+            Console.WriteLine(result.Message);
         }
 
         private static void CarList(CarManager carManager)
         {
-            foreach (var cars in carManager.GetAll())
+            var result = carManager.GetAll();
+            if (result.Success==true)
             {
-                Console.WriteLine(cars.Id + " " + cars.BrandId + " " + cars.ColorId + " " + cars.Name + " " + cars.ModelYear + " " + cars.DailyPrice + "$");
+                foreach (var cars in result.Data)
+                {
+                    Console.WriteLine(cars.Id + " " + cars.BrandId + " " + cars.ColorId + " " + cars.Name + " " + cars.ModelYear + " " + cars.DailyPrice + "$");   
+                }
+                Console.WriteLine(result.Message);
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }           
         }
     }
 }
