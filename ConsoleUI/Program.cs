@@ -16,7 +16,14 @@ namespace ConsoleUI
             UserManager userManager = new UserManager(new EfUserDal());
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            BrandList(brandManager);
+            CarImageManager carImageManager = new CarImageManager(new EfCarImageDal());
+            //var result = carImageManager.GetAll();
+            //foreach (var res in result.Data)
+            //{
+            //    Console.WriteLine(res.Id+" "+res.CarId+" "+res.ImagePath+" "+res.Date);
+            //}
+            //BrandList(brandManager);
+            //Console.WriteLine(Guid.NewGuid());
         }
 
         private static void RentalDetailList(RentalManager rentalManager)

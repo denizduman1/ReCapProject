@@ -14,5 +14,6 @@ namespace Business.Constants
         public static string BrandsListed = "Markalar Listelendi";
         public static string ResultSuccess = "Araç başarıyla kiralandı";
         public static string ResultError = "Araç şuan kirada";
+        public static string CarImageLimitExceeded = "Arabaya daha fazla resim ekleyemezsiniz";
     }
 }
