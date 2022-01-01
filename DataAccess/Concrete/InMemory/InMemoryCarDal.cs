@@ -3,6 +3,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,19 +36,16 @@ namespace DataAccess.Concrete
             _cars.Remove(deletedToCar);
         }
 
-        public List<Car> GetAll()
+        public Car Get(Expression<Func<Car, bool>> filter)
         {
-            return _cars.ToList();
+            //return _cars.SingleOrDefault(filter);
+            throw new NotImplementedException();
         }
 
-        public List<Car> GetByBrandId(int id)
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
         {
-            return _cars.Where(c => c.BrandId == id).ToList();
-        }
-
-        public Car GetById(int id)
-        {
-            return _cars.SingleOrDefault(c => c.Id == id);
+            //return filter == null ? _cars.ToList() : _cars.Where(filter).to 
+            throw new NotImplementedException();
         }
 
         public void Update(Car car)
