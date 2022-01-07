@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Abstract
+namespace Core.Entities
 {
-    // Veri tabanındaki tabloları temsil eden imza
-    public interface IEntity
+    public interface IDto
     {
     }
 }

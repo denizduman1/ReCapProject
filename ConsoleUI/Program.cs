@@ -2,9 +2,9 @@
 using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 
-
-CarManager carManager = new CarManager(new EfCarDal());
+CarManager carManager = new(new EfCarDal());
 List<Car> cars = carManager.GetAll();
 
 
@@ -14,3 +14,14 @@ foreach (var car in cars)
         + car.ModelYear.Year + " " + car.Description);
     Console.WriteLine("---");
 }
+
+
+List<CarDetailDto> carsDetails = carManager.GetAllCarDetails();
+
+
+foreach (var car in carsDetails)
+{
+    Console.WriteLine(car.CarId + " " + car.CarName + " " + car.BrandName + " " + car.ColorName + " " + car.DailyPrice);
+    Console.WriteLine("---");
+}
+
