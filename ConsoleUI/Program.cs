@@ -5,7 +5,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 
 CarManager carManager = new(new EfCarDal());
-List<Car> cars = carManager.GetAll();
+List<Car> cars = carManager.GetAll().Data;
 
 
 foreach (var car in cars)
@@ -16,12 +16,62 @@ foreach (var car in cars)
 }
 
 
-List<CarDetailDto> carsDetails = carManager.GetAllCarDetails();
+List<CarDetailDto> carsDetails = carManager.GetAllCarDetails().Data;
 
 
 foreach (var car in carsDetails)
 {
+    Console.WriteLine();
     Console.WriteLine(car.CarId + " " + car.CarName + " " + car.BrandName + " " + car.ColorName + " " + car.DailyPrice);
     Console.WriteLine("---");
 }
 
+Console.WriteLine("-------------------");
+
+
+Console.WriteLine(carManager.Add(new Car() { Name = "a", DailyPrice = 1 }).Message);
+
+var carswithResult = carManager.GetAll();
+
+if (carswithResult.IsSuccess)
+{
+    Console.WriteLine(carswithResult.Message);
+    foreach (var car in carswithResult.Data)
+    {
+        Console.WriteLine(car.Id + " " + car.BrandId + " " + car.Name + " " + car.ColorId + " " + car.DailyPrice + " "
+            + car.ModelYear.Year + " " + car.Description);
+        Console.WriteLine("---");
+    }
+}
+
+Console.WriteLine("--------------");
+
+ColorManager colorManager = new ColorManager(new EfColorDal());
+
+if (colorManager.GetAll().IsSuccess)
+{
+    foreach (var color in colorManager.GetAll().Data)
+    {
+        Console.Write(color.Name + "--");
+    }
+}
+else
+{
+    Console.WriteLine(colorManager.GetAll().Message);
+}
+
+Console.WriteLine();
+
+BrandManager brandManager = new BrandManager(new EfBrandDal());
+
+if (brandManager.GetAll().IsSuccess)
+{
+    foreach (var brand in brandManager.GetAll().Data)
+    {
+        Console.Write(brand.Name + "--");
+    }
+}
+else
+{
+    Console.WriteLine(colorManager.GetAll().Message);
+}
