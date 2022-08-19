@@ -49,7 +49,12 @@ namespace Business.Concrete
 
         public IDataResult<Rental> GetbyId(int id)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(r=>r.Id == id));
+            var result  = _rentalDal.Get(r=>r.Id == id);
+            if (result != null)
+            {
+                return new SuccessDataResult<Rental>("kiralama bulundu", result);
+            }
+            return new ErrorDataResult<Rental>("kiralama bulunamadı", result);
         }
     }
 }
