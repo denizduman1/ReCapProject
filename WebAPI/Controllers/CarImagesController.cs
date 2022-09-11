@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
             _webhostEnvironment = webhostEnvironment;
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public IActionResult Add([FromForm] CarImageAddDto carImageAddDto)
         {
             var wwwroot = _webhostEnvironment.WebRootPath;

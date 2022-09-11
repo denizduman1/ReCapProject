@@ -21,7 +21,6 @@ namespace WebAPI.Extensions
             //serviceCollection.AddSingleton<ICustomerDal, EfCustomerDal>();
             //serviceCollection.AddSingleton<IUserService, UserManager>();
             //serviceCollection.AddSingleton<IUserDal, EfUserDal>();
-
             return serviceCollection;
         }
     }
