@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
@@ -20,7 +21,8 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        [ValidationAspect(typeof(BrandValidator),Priority = 1)]
+        [SecuredOperation("brand.add,admin",Priority = 1)]
+        [ValidationAspect(typeof(BrandValidator),Priority = 2)]
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);

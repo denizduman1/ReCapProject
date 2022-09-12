@@ -6,10 +6,12 @@ using Business.Concrete;
 using Business.Mapping.AutoMapper;
 using Castle.DynamicProxy;
 using Core.Utilties.Interceptors;
+using Core.Utilties.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +57,13 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterAssemblyTypes(assembly).Where(t => t.Namespace.Contains(nameof(Business.Concrete)))
                 .AsImplementedInterfaces();
+
+            builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+            //builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
 
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces().EnableInterfaceInterceptors
                 (new ProxyGenerationOptions()

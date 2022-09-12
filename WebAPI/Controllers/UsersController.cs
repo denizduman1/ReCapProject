@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(User user)
+        public IActionResult Add(Core.Entities.Concrete.User user)
         {
             var userResult = _userService.Add(user);
             if (userResult.IsSuccess)

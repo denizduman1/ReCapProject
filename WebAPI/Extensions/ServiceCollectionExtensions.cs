@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
+using Core.Utilties.IoC;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 
@@ -21,6 +22,8 @@ namespace WebAPI.Extensions
             //serviceCollection.AddSingleton<ICustomerDal, EfCustomerDal>();
             //serviceCollection.AddSingleton<IUserService, UserManager>();
             //serviceCollection.AddSingleton<IUserDal, EfUserDal>();
+            serviceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            ServiceTool.Create(serviceCollection);
             return serviceCollection;
         }
     }
